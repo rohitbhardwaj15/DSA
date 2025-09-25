@@ -1,16 +1,30 @@
+
+
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        backtrack(res, new ArrayList<>(), nums, 0);
-        return res;
+        List<List<Integer>> result = new ArrayList<>();
+        int n = nums.length;
+        int total = 1 << n;
+
+        for (int mask = 0; mask < total; mask++) {
+            List<Integer> subset = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                
+                if ((mask & (1 << i)) != 0) {
+                    subset.add(nums[i]);
+                }
+            }
+            result.add(subset);
+        }
+        return result;
     }
 
-    private void backtrack(List<List<Integer>> res, List<Integer> curr, int[] nums, int start) {
-        res.add(new ArrayList<>(curr));
-        for (int i = start; i < nums.length; i++) {
-            curr.add(nums[i]);
-            backtrack(res, curr, nums, i + 1);
-            curr.remove(curr.size() - 1);
-        }
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] nums1 = {1, 2, 3};
+        System.out.println(sol.subsets(nums1));
+
+        int[] nums2 = {0};
+        System.out.println(sol.subsets(nums2));
     }
 }
