@@ -41,7 +41,7 @@ class Solution {
         queue.offer(root);
 
         while (!queue.isEmpty()) {
-            int size = queue.size(); // number of nodes at current level
+            int size = queue.size(); 
             List<Integer> level = new ArrayList<>();
 
             for (int i = 0; i < size; i++) {
