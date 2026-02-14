@@ -3,11 +3,10 @@ class Solution {
         int n = nums.length;
         int[] answer = new int[n];
 
-        
-        int prefix = 1;
-        for (int i = 0; i < n; i++) {
-            answer[i] = prefix;
-            prefix *= nums[i];
+        answer[0] = 1;   
+
+        for (int i = 1; i < n; i++) {
+            answer[i] = answer[i - 1] * nums[i - 1];
         }
 
         
