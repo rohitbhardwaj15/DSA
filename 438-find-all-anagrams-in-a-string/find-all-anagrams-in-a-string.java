@@ -1,32 +1,34 @@
-import java.util.*;
-
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
+
         List<Integer> result = new ArrayList<>();
-        
-        if (s.length() < p.length()) return result;
-        
-        int[] pCount = new int[26];
-        int[] sCount = new int[26];
-        
-        for (char c : p.toCharArray()) {
-            pCount[c - 'a']++;
+
+        int[] countP = new int[26];
+        int[] countWindow = new int[26];
+
+        // Frequency of characters in p
+        for (char ch : p.toCharArray()) {
+            countP[ch - 'a']++;
         }
-        
-        int windowSize = p.length();
-        
-        for (int i = 0; i < s.length(); i++) {
-          
-            sCount[s.charAt(i) - 'a']++;
-            
-            if (i >= windowSize) {
-                sCount[s.charAt(i - windowSize) - 'a']--;
+
+        int k = p.length();
+
+        for (int right = 0; right < s.length(); right++) {
+
+            // Add current character
+            countWindow[s.charAt(right) - 'a']++;
+
+            // Keep window size equal to p.length()
+            if (right >= k) {
+                countWindow[s.charAt(right - k) - 'a']--;
             }
-             if (Arrays.equals(pCount, sCount)) {
-                result.add(i - windowSize + 1);
+
+            // Check if window is an anagram
+            if (Arrays.equals(countP, countWindow)) {
+                result.add(right - k + 1);
             }
         }
-        
+
         return result;
     }
 }
